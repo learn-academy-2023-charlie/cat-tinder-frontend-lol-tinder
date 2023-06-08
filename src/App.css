@@ -1,38 +1,29 @@
-.App {
-  text-align: center;
+@font-face {
+  font-family: 'BeaufortBold';
+  src: url('./assets/font/BeaufortforLOL-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
 }
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.navbar-title {
+  font-family: 'BeaufortBold', sans-serif;
+  font-size: 36px; 
+  color: yellow; 
 }
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
+.footer-title {
+  font-family: 'BeaufortBold', sans-serif;
+  font-size: 24px; 
+  color: yellow; 
 }
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+body {
+  margin: 0;
+  padding: 0;
 }
-
-.App-link {
-  color: #61dafb;
+.header h1 {
+  margin: 0;
+  padding: 0;
 }
-
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.notfound-style {
+  font-family: 'BeaufortBold', sans-serif;
+  font-size: 24px; 
+  color: whitesmoke; 
 }
