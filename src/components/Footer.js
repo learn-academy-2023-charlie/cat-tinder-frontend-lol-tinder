@@ -20,6 +20,7 @@ const Footer = () => {
     <>
       <Navbar className="my-2" color="info" fixed="bottom" style={footerStyle}>
         <span className="footer-title">&copy; Kyle &amp;&amp; Bea | 2023</span>
+        <a href="/">Go back to Home</a>
       </Navbar>
     </>
   );

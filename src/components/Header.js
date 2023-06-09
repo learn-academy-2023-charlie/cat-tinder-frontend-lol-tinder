@@ -13,7 +13,7 @@ const Header = () => {
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between", 
-    padding: "0 10px", // Add padding to create spacing
+    padding: "0", 
   };
 
   const logoStyle = {
