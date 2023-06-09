@@ -19,11 +19,25 @@
   font-size: 24px; 
   color: yellow; 
 }
-body {
+.body-title{
+  font-family: 'BeaufortBold', sans-serif;
+  font-size: 36px; 
+  color: yellow; 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.name-card{
+  font-family: 'BeaufortBold', sans-serif;
+  font-size: 24px;
+}
+.body {
   margin: 0;
   padding: 0;
+  font-family: 'BeaufortBold', sans-serif;
+  font-size: 24px; 
 }
-.header h1 {
+.header {
   margin: 0;
   padding: 0;
 }

@@ -8,11 +8,11 @@ import ChampNew from "./pages/ChampNew";
 import ChampEdit from "./pages/ChampEdit";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
-import mockChamp from "./MockChamp";
+import championsData from "./championsData";
 import "./App.css";
 
 const App = () => {
-  const [champions, setChampions] = useState(mockChamp);
+  const [champions, setChampions] = useState(championsData);
 
   return (
     <Router>
