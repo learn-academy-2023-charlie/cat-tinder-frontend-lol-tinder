@@ -1,5 +1,6 @@
 import React from "react";
 import { Card, CardBody, CardTitle, Button } from "reactstrap";
+import { Link } from "react-router-dom";
 import championsData from "../championsData.js";
 import another from "../assets/another.png";
 
@@ -26,6 +27,7 @@ const ChampIndex = () => {
     justifyContent: "center",
     padding: "1rem",
     textAlign: "center",
+    cursor: "pointer",
   };
 
   const championImageStyle = {
@@ -46,27 +48,32 @@ const ChampIndex = () => {
   };
 
   return (
-    <div>
+    <>
       <main>
+        <p>Meet the Champs</p>
         <div className="champ-index-container" style={indexStyle}>
           {championsData.map((champion, index) => (
-            <Card className="champ-card" style={cardStyle} key={index}>
-              <div>
-                <img
-                  className="champ-image"
-                  alt={`profile of a champ named ${champion.name}`}
-                  src={champion.image}
-                  style={championImageStyle}
-                />
-              </div>
-              <CardBody>
-                <CardTitle style={championNameStyle}>{champion.name}</CardTitle>
-              </CardBody>
-            </Card>
+            <Link to={`/champShow/${champion.id}`} key={index}>
+              <Card className="champ-card" style={cardStyle}>
+                <div>
+                  <img
+                    className="champ-image"
+                    alt={`profile of a champ named ${champion.name}`}
+                    src={champion.image}
+                    style={championImageStyle}
+                  />
+                </div>
+                <CardBody>
+                  <CardTitle style={championNameStyle}>
+                    {champion.name}
+                  </CardTitle>
+                </CardBody>
+              </Card>
+            </Link>
           ))}
         </div>
       </main>
-    </div>
+    </>
   );
 };
 

@@ -1,33 +1,66 @@
 import React from "react";
-import { useParams } from "react-router-dom";
-import { Card, CardBody, CardTitle, CardSubtitle, CardText } from "reactstrap";
+import { useParams, Link } from "react-router-dom";
+import { Card, CardBody, CardTitle, CardText, Button } from "reactstrap";
+import championsData from "../championsData.js";
 
 const ChampShow = ({ champs }) => {
   const { id } = useParams();
 
   let currentChamp = champs?.find((champ) => champ.id === +id);
 
+  const cardStyle = {
+    width: "14rem",
+    height: "24rem",
+    backgroundColor: "white",
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center",
+    justifyContent: "center",
+    padding: "1rem",
+    textAlign: "center",
+  };
+
+  const championImageStyle = {
+    maxWidth: "100%",
+    maxHeight: "100%",
+    objectFit: "contain",
+  };
+
+  const championNameStyle = {
+    font: "'BeaufortforLOL-Italic', sans-serif",
+    position: "relative",
+    zIndex: 1,
+    top: 0,
+    left: 0,
+    width: "100%",
+    padding: "0.5rem",
+    backgroundColor: "rgba(0, 0, 0, 0.7)",
+    color: "white",
+  };
+
   return (
-    <main className="card">
+    <div>
       {currentChamp && (
-        <Card style={{ width: "18rem" }}>
+        <Card className="champ-card" style={cardStyle}>
+          <div>
+            <h1 style={{ marginBottom: "1rem" }}>{currentChamp.name}</h1>
+            <img
+              className="champ-image"
+              alt={`profile of a champ named ${currentChamp.name}`}
+              src={currentChamp.image}
+              style={championImageStyle}
+            />
+          </div>
           <CardBody>
-            <CardTitle tag="h5">{currentChamp.name}</CardTitle>
-            <CardSubtitle className="mb-2 text-muted" tag="h6">
-              {currentChamp.age}
-            </CardSubtitle>
-          </CardBody>
-          <img
-            alt={`image of ${currentChamp.name} `}
-            src={currentChamp.image}
-            width="100%"
-          />
-          <CardBody>
-            <CardText>{currentChamp.ability}</CardText>
+            <CardText>Age: {currentChamp.age}</CardText>
+            <CardText>Ability: {currentChamp.ability}</CardText>
+            <Button tag={Link} to="/champIndex" color="primary">
+              Back to Index
+            </Button>
           </CardBody>
         </Card>
       )}
-    </main>
+    </div>
   );
 };
 
