@@ -12,8 +12,9 @@ const notFound = () => {
     padding: '0',
   };
   return (
-    <div style={notFoundStyle}>
+    <div style={notFoundStyle} data-testid="notfound-div">
       <span className="notfound-style">There's nothing to see here</span>
+      <a href="/">Go back to Home</a>
     </div>
   );
 }
