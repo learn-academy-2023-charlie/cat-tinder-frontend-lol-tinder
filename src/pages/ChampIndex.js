@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import championsData from "../championsData.js";
 import another from "../assets/another.png";
 
+import '../App.css'
+
 const ChampIndex = () => {
   const indexStyle = {
     backgroundImage: `url(${another})`,
@@ -18,39 +20,42 @@ const ChampIndex = () => {
   };
 
   const cardStyle = {
-    width: "14rem",
+    width: "27rem",
     height: "24rem",
-    backgroundColor: "white",
+    backgroundColor: "transparent",
     display: "flex",
     flexDirection: "column",
     alignItems: "center",
     justifyContent: "center",
-    padding: "1rem",
+    marginLeft: "15rem",
+    marginRight: "15rem",
     textAlign: "center",
     cursor: "pointer",
+    border:"none",
   };
 
   const championImageStyle = {
-    maxWidth: "100%",
-    maxHeight: "100%",
+    maxWidth: "50em",
+    maxHeight: "50em",
     objectFit: "contain",
   };
 
   const championNameStyle = {
     font: "'BeaufortforLOL-Italic', sans-serif",
-    position: "absolute",
-    bottom: "0",
-    left: "0",
     width: "100%",
-    padding: "0.5rem",
     backgroundColor: "rgba(0, 0, 0, 0.7)",
     color: "white",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    fontSize: "1.5rem",
+    marginBottom:"10em",
   };
 
   return (
     <>
       <main>
-        <p>Meet the Champs</p>
+        <p className="invite">Meet the Champs</p>
         <div className="champ-index-container" style={indexStyle}>
           {championsData.map((champion, index) => (
             <Link to={`/champShow/${champion.id}`} key={index}>
