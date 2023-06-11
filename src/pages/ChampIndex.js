@@ -1,10 +1,12 @@
 import React from "react";
 import { Card, CardBody, CardTitle, Button } from "reactstrap";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 import championsData from "../championsData.js";
 import another from "../assets/another.png";
+import "bootstrap/dist/css/bootstrap.css";
 
-import '../App.css'
+
+import '../App.css';
 
 const ChampIndex = () => {
   const indexStyle = {
@@ -31,7 +33,7 @@ const ChampIndex = () => {
     marginRight: "15rem",
     textAlign: "center",
     cursor: "pointer",
-    border:"none",
+    border: "none",
   };
 
   const championImageStyle = {
@@ -49,7 +51,16 @@ const ChampIndex = () => {
     justifyContent: "center",
     alignItems: "center",
     fontSize: "1.5rem",
-    marginBottom:"10em",
+    marginBottom: "10em",
+  };
+
+  const navBtnStyle = {
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: "42em",
+    color: "white",
+    zIndex: "9999",
   };
 
   return (
@@ -77,6 +88,9 @@ const ChampIndex = () => {
             </Link>
           ))}
         </div>
+        <NavLink className="navBtn" to="/champNew" style={navBtnStyle}>
+          <Button>Add a Character</Button>
+        </NavLink>
       </main>
     </>
   );
