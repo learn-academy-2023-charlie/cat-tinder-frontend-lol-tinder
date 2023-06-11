@@ -1,24 +1,29 @@
-import React from "react";
+import React, { useState } from "react";
 import { Card, CardBody, CardTitle, Button } from "reactstrap";
-import { Link, NavLink } from "react-router-dom";
+import { Link } from "react-router-dom";
 import championsData from "../championsData.js";
 import another from "../assets/another.png";
 import "bootstrap/dist/css/bootstrap.css";
-
-
-import '../App.css';
+import "../App.css";
+import ChampNew from "./ChampNew";
 
 const ChampIndex = () => {
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const toggleModal = () => {
+    setModalOpen(!modalOpen);
+  };
+
   const indexStyle = {
     backgroundImage: `url(${another})`,
     backgroundSize: "cover",
     backgroundRepeat: "no-repeat",
     backgroundPosition: "center",
-    height: "100vh",
+    height: "calc(100vh - 2em)",
     display: "flex",
     alignItems: "center",
     justifyContent: "space-between",
-    padding: "0",
+    padding: "1em",
   };
 
   const cardStyle = {
@@ -54,13 +59,23 @@ const ChampIndex = () => {
     marginBottom: "10em",
   };
 
-  const navBtnStyle = {
+  const buttonStyle = {
     display: "flex",
     justifyContent: "center",
     alignItems: "center",
-    marginTop: "42em",
+    marginTop: "1em",
     color: "white",
-    zIndex: "9999",
+    backgroundColor: "blue",
+    padding: "1em 2em",
+    border: "none",
+    borderRadius: "4px",
+    fontSize: "1rem",
+    cursor: "pointer",
+  };
+
+  const handleCharacterAdded = (newCharacter) => {
+    // Update the championsData array with the new character
+    championsData.push(newCharacter);
   };
 
   return (
@@ -87,10 +102,16 @@ const ChampIndex = () => {
               </Card>
             </Link>
           ))}
+          <Button onClick={toggleModal} style={buttonStyle}>
+            Add a Character
+          </Button>
         </div>
-        <NavLink className="navBtn" to="/champNew" style={navBtnStyle}>
-          <Button>Add a Character</Button>
-        </NavLink>
+        {modalOpen && (
+          <ChampNew
+            toggleModal={toggleModal}
+            onCharacterAdded={handleCharacterAdded}
+          />
+        )}
       </main>
     </>
   );
