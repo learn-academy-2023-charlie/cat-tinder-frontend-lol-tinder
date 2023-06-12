@@ -1,0 +1,35 @@
+.carousel-image {
+    width: 40%;
+    height: 74vh;
+    border: none;
+    padding: 66px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: none;
+    margin: 0 auto;
+    margin-top: 100px;
+  }
+
+  .custom-header {
+    font-size: 50px; 
+    color: white;
+  }
+  
+  .custom-text {
+    font-size: 24px; 
+    color: white;
+  }
+    
+  
+  .navBtn{
+    position: absolute;
+    top: 10em;
+    right: 40em;
+    }
+
+  .navBtn2{
+    position: absolute;
+    bottom: 10em;
+    left: 40em;
+    }
