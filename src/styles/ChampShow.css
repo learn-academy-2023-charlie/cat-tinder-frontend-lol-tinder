@@ -1,0 +1,55 @@
+#page {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    height: 100vh;
+    margin-left: 250px;
+  }
+  
+  .champ-container {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+    width: 100%;
+    margin-right: 250px;
+  }
+  
+  .main-card {
+    width: 500px;
+    text-align: center;
+  }
+  
+  .description-card {
+    flex: 1;
+    margin-left: 20px;
+  }
+  
+  .img {
+    width: 70%;
+    margin: 20px auto;
+  }
+  
+  .tit {
+    font-size: 24px;
+    margin-bottom: 10px;
+  }
+  
+  .subTit {
+    font-size: 18px;
+    color: #555;
+  }
+  
+  .description {
+    font-size: 33px;
+  }
+  
+  .return-button {
+    position: absolute;
+    bottom: 90px;
+    right: 60px;
+  }
+  .edtBtn{
+    position: absolute;
+    top: 10em;
+    left: 6em;
+}

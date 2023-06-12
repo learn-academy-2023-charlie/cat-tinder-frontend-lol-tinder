@@ -1,120 +1,108 @@
 import React, { useState } from "react";
-import { Card, CardBody, CardTitle, Button } from "reactstrap";
-import { Link } from "react-router-dom";
-import championsData from "../championsData.js";
+import { NavLink, Link } from "react-router-dom";
 import another from "../assets/another.png";
 import "bootstrap/dist/css/bootstrap.css";
 import "../App.css";
-import ChampNew from "./ChampNew";
+import "../styles/ChampIndex.css";
+import {
+  Carousel,
+  CarouselItem,
+  CarouselControl,
+  CarouselIndicators,
+  CarouselCaption,
+  Button,
+} from "reactstrap";
+import PropTypes from "prop-types";
 
-const ChampIndex = () => {
-  const [modalOpen, setModalOpen] = useState(false);
+const carouselStyle = {
+  backgroundImage: `url(${another})`,
+  backgroundSize: "cover",
+  backgroundRepeat: "no-repeat",
+  backgroundPosition: "center",
+  minHeight: "90vh",
+  marginTop: "5vh",
+};
 
-  const toggleModal = () => {
-    setModalOpen(!modalOpen);
+const ChampIndex = ({ championsData }) => {
+  const [activeIndex, setActiveIndex] = useState(0);
+  const [animating, setAnimating] = useState(false);
+
+  const next = () => {
+    if (animating) return;
+    const nextIndex =
+      activeIndex === championsData.length - 1 ? 0 : activeIndex + 1;
+    setActiveIndex(nextIndex);
   };
 
-  const indexStyle = {
-    backgroundImage: `url(${another})`,
-    backgroundSize: "cover",
-    backgroundRepeat: "no-repeat",
-    backgroundPosition: "center",
-    height: "calc(100vh - 2em)",
-    display: "flex",
-    alignItems: "center",
-    justifyContent: "space-between",
-    padding: "1em",
+  const previous = () => {
+    if (animating) return;
+    const nextIndex =
+      activeIndex === 0 ? championsData.length - 1 : activeIndex - 1;
+    setActiveIndex(nextIndex);
   };
 
-  const cardStyle = {
-    width: "27rem",
-    height: "24rem",
-    backgroundColor: "transparent",
-    display: "flex",
-    flexDirection: "column",
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: "15rem",
-    marginRight: "15rem",
-    textAlign: "center",
-    cursor: "pointer",
-    border: "none",
+  const goToIndex = (newIndex) => {
+    if (animating) return;
+    setActiveIndex(newIndex);
   };
 
-  const championImageStyle = {
-    maxWidth: "50em",
-    maxHeight: "50em",
-    objectFit: "contain",
-  };
-
-  const championNameStyle = {
-    font: "'BeaufortforLOL-Italic', sans-serif",
-    width: "100%",
-    backgroundColor: "rgba(0, 0, 0, 0.7)",
-    color: "white",
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    fontSize: "1.5rem",
-    marginBottom: "10em",
-  };
-
-  const buttonStyle = {
-    display: "flex",
-    justifyContent: "center",
-    alignItems: "center",
-    marginTop: "1em",
-    color: "white",
-    backgroundColor: "blue",
-    padding: "1em 2em",
-    border: "none",
-    borderRadius: "4px",
-    fontSize: "1rem",
-    cursor: "pointer",
-  };
-
-  const handleCharacterAdded = (newCharacter) => {
-    // Update the championsData array with the new character
-    championsData.push(newCharacter);
-  };
+  const slides = championsData.map((item, index) => {
+    return (
+      <CarouselItem
+        onExiting={() => setAnimating(true)}
+        onExited={() => setAnimating(false)}
+        key={item.id}
+        active={item.id === activeIndex}
+      >
+        <img className="carousel-image" src={item.image} alt={item.altText} />
+        <CarouselCaption
+          captionHeader={<div className="custom-header">{item.name}</div>}
+          captionText={<div className="custom-text">{`${item.age}`}</div>}
+        />
+        <NavLink className="navBtn" to={`/champShow/${item.id}`}>
+          <Button>More info</Button>
+        </NavLink>
+      </CarouselItem>
+    );
+  });
 
   return (
-    <>
-      <main>
-        <p className="invite">Meet the Champs</p>
-        <div className="champ-index-container" style={indexStyle}>
-          {championsData.map((champion, index) => (
-            <Link to={`/champShow/${champion.id}`} key={index}>
-              <Card className="champ-card" style={cardStyle}>
-                <div>
-                  <img
-                    className="champ-image"
-                    alt={`profile of a champ named ${champion.name}`}
-                    src={champion.image}
-                    style={championImageStyle}
-                  />
-                </div>
-                <CardBody>
-                  <CardTitle style={championNameStyle}>
-                    {champion.name}
-                  </CardTitle>
-                </CardBody>
-              </Card>
-            </Link>
-          ))}
-          <Button onClick={toggleModal} style={buttonStyle}>
-            Add a Character
-          </Button>
-        </div>
-        {modalOpen && (
-          <ChampNew
-            toggleModal={toggleModal}
-            onCharacterAdded={handleCharacterAdded}
-          />
-        )}
-      </main>
-    </>
+    <div>
+      <Carousel
+        activeIndex={activeIndex}
+        next={next}
+        previous={previous}
+        style={carouselStyle}
+      >
+        <CarouselIndicators
+          items={championsData}
+          activeIndex={activeIndex}
+          onClickHandler={goToIndex}
+        />
+        {slides}
+        <CarouselControl
+          direction="prev"
+          directionText="Previous"
+          onClickHandler={previous}
+        />
+        <CarouselControl
+          direction="next"
+          directionText="Next"
+          onClickHandler={next}
+        />
+      </Carousel>
+      <Link to="/champNew">
+        <Button className="navBtn2">Add a Character</Button>
+      </Link>
+      <NavLink className="navBtn3" to="/champIndex">
+        <Button>View Carousel</Button>
+      </NavLink>
+    </div>
   );
+};
+
+ChampIndex.propTypes = {
+  championsData: PropTypes.array.isRequired,
 };
 
 export default ChampIndex;

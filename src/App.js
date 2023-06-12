@@ -19,12 +19,17 @@ const App = () => {
       <Header />
       <Routes>
         <Route path="/" element={<Home />} />
-        <Route path="/champIndex" element={<ChampIndex champs={champions} />} />
+        <Route
+          path="/champIndex"
+          element={<ChampIndex championsData={champions} />}
+        />
+
         <Route
           path="/champShow/:id"
           element={<ChampShow champs={champions} />}
         />
         <Route path="/champNew" element={<ChampNew />} />
+
         <Route path="/champEdit" element={<ChampEdit />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
