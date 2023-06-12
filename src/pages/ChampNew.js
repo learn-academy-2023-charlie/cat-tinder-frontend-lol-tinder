@@ -1,5 +1,5 @@
-import React, { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   Modal,
   ModalHeader,
@@ -10,18 +10,15 @@ import {
   Form,
   FormGroup,
   Button,
-} from 'reactstrap';
-import MockData from '../championsData';
-
+} from "reactstrap";
 
 const ChampNew = () => {
   const [modalOpen, setModalOpen] = useState(false);
-  const [characterName, setCharacterName] = useState('');
-  const [characterAge, setCharacterAge] = useState('');
-  const [characterGender, setCharacterGender] = useState('');
-  const [characterImage, setCharacterImage] = useState('');
-  const [characterDescription, setCharacterDescription] = useState('');
-
+  const [characterName, setCharacterName] = useState("");
+  const [characterAge, setCharacterAge] = useState("");
+  const [characterGender, setCharacterGender] = useState("");
+  const [characterImage, setCharacterImage] = useState("");
+  const [characterDescription, setCharacterDescription] = useState("");
 
   const navigate = useNavigate();
 
@@ -36,30 +33,36 @@ const ChampNew = () => {
   const handleFormSubmit = (e) => {
     e.preventDefault();
     const newCharacter = {
-      id: MockData.length + 1, // Generate a unique ID for the new character
       name: characterName,
       age: characterAge,
       gender: characterGender,
       description: characterDescription,
-      image: characterImage, // Add the image URL to the new character
+      image: characterImage,
     };
-    MockData.push(newCharacter);
 
-    // Reset the form fields and close the modal
-    setCharacterName('');
-    setCharacterAge('');
-    setCharacterGender('');
-    setCharacterDescription('');
-    setCharacterImage('');
-    setModalOpen(false);
-  };
-
-  const handleAdded = () => {
-    navigate('/champIndex');
+    fetch("http://localhost:3000/champs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(newCharacter),
+    })
+      .then((response) => response.json())
+      .then(() => {
+        // Reset the form fields and close the modal
+        setCharacterName("");
+        setCharacterAge("");
+        setCharacterGender("");
+        setCharacterDescription("");
+        setCharacterImage("");
+        setModalOpen(false);
+        navigate("/champIndex");
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleCancel = () => {
-    navigate('/champIndex');
+    navigate("/champIndex");
   };
 
   return (
@@ -96,7 +99,7 @@ const ChampNew = () => {
               value={characterGender}
               onChange={(e) => setCharacterGender(e.target.value)}
             >
-              <option value="">Select Gender</option> {/* Added empty option */}
+              <option value="">Select Gender</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
             </Input>
@@ -110,19 +113,19 @@ const ChampNew = () => {
               value={characterImage}
               onChange={(e) => setCharacterImage(e.target.value)}
             />
-            <FormGroup>
+          </FormGroup>
+          <FormGroup>
             <Label for="characterDescription">Description</Label>
             <Input
-                type="textarea"
-                name="characterDescription"
-                id="characterDescription"
-                value={characterDescription}
-                onChange={(e) => setCharacterDescription(e.target.value)}
+              type="textarea"
+              name="characterDescription"
+              id="characterDescription"
+              value={characterDescription}
+              onChange={(e) => setCharacterDescription(e.target.value)}
             />
-            </FormGroup>
           </FormGroup>
           <ModalFooter>
-            <Button color="primary" type="submit" onClick={handleAdded}>
+            <Button color="primary" type="submit">
               Add
             </Button>
             <Button color="secondary" onClick={handleCancel}>

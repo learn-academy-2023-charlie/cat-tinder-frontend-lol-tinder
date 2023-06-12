@@ -1,7 +1,5 @@
-// ChampEdit.js
-
-import React, { useState, useEffect } from 'react';
-import { useNavigate, useParams } from 'react-router-dom';
+import React, { useState, useEffect } from "react";
+import { useNavigate, useParams } from "react-router-dom";
 import {
   Modal,
   ModalHeader,
@@ -12,36 +10,33 @@ import {
   Form,
   FormGroup,
   Button,
-} from 'reactstrap';
-import champions from '../championsData';
+} from "reactstrap";
 
-import '../styles/ChampEdit.css';
+import "../styles/ChampEdit.css";
 
 const ChampEdit = ({ setChampions }) => {
   const { id } = useParams();
   const [modalOpen, setModalOpen] = useState(false);
-  const [name, setName] = useState('');
-  const [age, setAge] = useState('');
-  const [gender, setGender] = useState('');
-  const [image, setImage] = useState('');
-  const [ability, setAbility] = useState('');
+  const [name, setName] = useState("");
+  const [age, setAge] = useState("");
+  const [gender, setGender] = useState("");
+  const [image, setImage] = useState("");
+  const [ability, setAbility] = useState("");
   const navigate = useNavigate();
-
-  const [updatedChampions, setUpdatedChampions] = useState([...champions]);
 
   useEffect(() => {
     setModalOpen(true);
-
-    const champion = updatedChampions.find((champ) => champ.id === +id);
-
-    if (champion) {
-      setName(champion.name);
-      setAge(champion.age);
-      setGender(champion.gender);
-      setImage(champion.image);
-      setAbility(champion.ability);
-    }
-  }, [id, updatedChampions]);
+    fetch(`http://localhost:3000/champs/${id}`)
+      .then((response) => response.json())
+      .then((champion) => {
+        setName(champion.name);
+        setAge(champion.age);
+        setGender(champion.gender);
+        setImage(champion.image);
+        setAbility(champion.ability);
+      })
+      .catch((error) => console.log(error));
+  }, [id]);
 
   const toggleModal = () => {
     setModalOpen(!modalOpen);
@@ -59,13 +54,24 @@ const ChampEdit = ({ setChampions }) => {
       ability,
     };
 
-    const updatedChampionsData = updatedChampions.map((champ) =>
-      champ.id === +id ? updatedChampion : champ
-    );
-
-    setUpdatedChampions(updatedChampionsData);
-    setChampions(updatedChampionsData);
-    setModalOpen(false);
+    fetch(`http://localhost:3000/champs/${id}`, {
+      method: "PATCH",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(updatedChampion),
+    })
+      .then((response) => response.json())
+      .then((updatedChampion) => {
+        setChampions((prevChampions) => {
+          const updatedChampionsData = prevChampions.map((champion) =>
+            champion.id === +id ? updatedChampion : champion
+          );
+          return updatedChampionsData;
+        });
+        setModalOpen(false);
+      })
+      .catch((error) => console.log(error));
   };
 
   const handleUpdate = () => {
