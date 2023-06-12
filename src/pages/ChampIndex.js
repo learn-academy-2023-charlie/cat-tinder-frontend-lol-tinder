@@ -1,9 +1,4 @@
-import React, { useState } from "react";
-import { NavLink, Link } from "react-router-dom";
-import another from "../assets/another.png";
-import "bootstrap/dist/css/bootstrap.css";
-import "../App.css";
-import "../styles/ChampIndex.css";
+import React, { useState } from 'react';
 import {
   Carousel,
   CarouselItem,
@@ -11,33 +6,36 @@ import {
   CarouselIndicators,
   CarouselCaption,
   Button,
-} from "reactstrap";
-import PropTypes from "prop-types";
+} from 'reactstrap';
+import { NavLink } from 'react-router-dom';
+import PropTypes from 'prop-types';
+
+import '../styles/ChampIndex.css';
+import another from '../assets/another.png';
+import champions from '../championsData';
 
 const carouselStyle = {
   backgroundImage: `url(${another})`,
-  backgroundSize: "cover",
-  backgroundRepeat: "no-repeat",
-  backgroundPosition: "center",
-  minHeight: "90vh",
-  marginTop: "5vh",
+  backgroundSize: 'cover',
+  backgroundRepeat: 'no-repeat',
+  backgroundPosition: 'center',
+  minHeight: '90vh',
+  marginTop: '5vh',
 };
 
-const ChampIndex = ({ championsData }) => {
+const ChampIndex = () => {
   const [activeIndex, setActiveIndex] = useState(0);
   const [animating, setAnimating] = useState(false);
 
   const next = () => {
     if (animating) return;
-    const nextIndex =
-      activeIndex === championsData.length - 1 ? 0 : activeIndex + 1;
+    const nextIndex = activeIndex === champions.length - 1 ? 0 : activeIndex + 1;
     setActiveIndex(nextIndex);
   };
 
   const previous = () => {
     if (animating) return;
-    const nextIndex =
-      activeIndex === 0 ? championsData.length - 1 : activeIndex - 1;
+    const nextIndex = activeIndex === 0 ? champions.length - 1 : activeIndex - 1;
     setActiveIndex(nextIndex);
   };
 
@@ -46,7 +44,7 @@ const ChampIndex = ({ championsData }) => {
     setActiveIndex(newIndex);
   };
 
-  const slides = championsData.map((item, index) => {
+  const slides = champions.map((item) => {
     return (
       <CarouselItem
         onExiting={() => setAnimating(true)}
@@ -68,32 +66,15 @@ const ChampIndex = ({ championsData }) => {
 
   return (
     <div>
-      <Carousel
-        activeIndex={activeIndex}
-        next={next}
-        previous={previous}
-        style={carouselStyle}
-      >
-        <CarouselIndicators
-          items={championsData}
-          activeIndex={activeIndex}
-          onClickHandler={goToIndex}
-        />
+      <Carousel activeIndex={activeIndex} next={next} previous={previous} style={carouselStyle}>
+        <CarouselIndicators items={champions} activeIndex={activeIndex} onClickHandler={goToIndex} />
         {slides}
-        <CarouselControl
-          direction="prev"
-          directionText="Previous"
-          onClickHandler={previous}
-        />
-        <CarouselControl
-          direction="next"
-          directionText="Next"
-          onClickHandler={next}
-        />
+        <CarouselControl direction="prev" directionText="Previous" onClickHandler={previous} />
+        <CarouselControl direction="next" directionText="Next" onClickHandler={next} />
       </Carousel>
-      <Link to="/champNew">
-        <Button className="navBtn2">Add a Character</Button>
-      </Link>
+      <NavLink className="navBtn2" to="/champNew">
+        <Button>Add a Character</Button>
+      </NavLink>
       <NavLink className="navBtn3" to="/champIndex">
         <Button>View Carousel</Button>
       </NavLink>
@@ -102,7 +83,7 @@ const ChampIndex = ({ championsData }) => {
 };
 
 ChampIndex.propTypes = {
-  championsData: PropTypes.array.isRequired,
+  champions: PropTypes.array.isRequired,
 };
 
 export default ChampIndex;

@@ -28,9 +28,9 @@ const App = () => {
           path="/champShow/:id"
           element={<ChampShow champs={champions} />}
         />
-        <Route path="/champNew" element={<ChampNew />} />
+        <Route path="/champNew" element={<ChampNew champs={champions}/>} />
 
-        <Route path="/champEdit" element={<ChampEdit />} />
+        <Route path="/champ/:id/Edit" element={<ChampEdit setChampions={setChampions} />} />
         <Route path="*" element={<NotFound />} />
       </Routes>
       <Footer />
